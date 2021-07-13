@@ -34,7 +34,7 @@ django-admin startproject testeDocker .	#starta o projeto
 2. Utilizar o comando:
 
 ```bash
-pip freeze > requiriments.txt
+pip freeze > requirements.txt
 ```
 
 1. Adicionar a seguinte linha ao final do arquivo (adaptador de banco de dados PostgreSQL): `psycopg2-binary==2.8.6`
