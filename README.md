@@ -125,18 +125,18 @@ Criar arquivo chamado `docker-compose.yml` na raiz do projeto com o seguinte con
 # Versão do docker compose file format (sintaxe)
 version: "3.8"
   # Serviço web
-	services:
-	  web:                                                   
-	    build: .                                            # Caminho para o construir a aplicação 
-	    command: python manage.py runserver 0.0.0.0:8000    # Executa o comando de inicialização do django
-	    volumes:                                                # Sincroniza os arquivos da aplicação com os do Docker 
-	      - .:/code
-	    ports:
-	      - 8000:8000                                       # expoem a porta 8000 (padão django)        
-	    depends_on:                                             # Define que o seriço web depende do serviço DB, logo o serviço DB sera inicializado antes do web
-	      - db
+services:
+  web:                                                   
+    build: .                                            # Caminho para o construir a aplicação 
+    command: python manage.py runserver 0.0.0.0:8000    # Executa o comando de inicialização do django
+    volumes:                                                # Sincroniza os arquivos da aplicação com os do Docker 
+      - .:/code
+    ports:
+      - 8000:8000                                       # expoem a porta 8000 (padão django)        
+    depends_on:                                             # Define que o seriço web depende do serviço DB, logo o serviço DB sera inicializado antes do web
+      - db
 
-	# Serviço Nginx
+# Serviço Nginx
   nginx:
     build:                                             # Informações referentes ao build do ngnx 
       context: ./nginx/                                 
@@ -146,16 +146,16 @@ version: "3.8"
     depends_on:                                        # Define que o serviço nginx depende o web, logo sera executado após o serviço web
       - web
 
-	#serviço do Banco de dados 
+#serviço do Banco de dados 
   db:
-	  image: postgres:13                                  # Define a imagem base do baco de dados 
-	  environment:
-		  - POSTGRES_USER=postgres                          # Variavel de ambiente que define o usuário do banco
-		  - POSTGRES_PASSWORD=postgres                      # Variavel de ambiente que define a senha do banco
+    image: postgres:13                                  # Define a imagem base do baco de dados 
+    environment:
+      - POSTGRES_USER=postgres                          # Variavel de ambiente que define o usuário do banco
+      - POSTGRES_PASSWORD=postgres                      # Variavel de ambiente que define a senha do banco
     volumes:
-	    - postgres_data:/var/lib/postgresql/data/         # Responsavel por fazer com que os dados do banco persistam 
-volumes:
-    postgres_data:--
+      - postgres_data:/var/lib/postgresql/data/         # Responsavel por fazer com que os dados do banco persistam 
+    volumes:
+      postgres_data:--
 ```
 
 ## Comandos Necessários
